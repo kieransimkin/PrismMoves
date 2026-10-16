@@ -5,6 +5,10 @@ description: Generate an evidence-labelled visual-language profile of local imag
 
 # PrismMoves
 
+![Synthetic input and actual PixelCue measurement figure showing the reporting handoff](assets/visual-profile-example.png)
+
+Generated measurement figure from PixelCue 0.9.0; explanatory output, not an interface screenshot or semantic-accuracy evaluation.
+
 Use PrismMoves to organise PixelCue analysis into JSON, Markdown and self-contained HTML. PixelCue owns image decoding, statistics, model adapters and inference. Improve PixelCue's supported APIs when reusable analysis is missing; do not duplicate its engine in PrismMoves or campaign scripts.
 
 Verify installed/released identities and read the current README. PixelCue 0.9.0+ is required. Run `prismmoves IMAGE --out NEW_DIRECTORY` using the in-process PixelCue API, or add `--pixelcue-url http://127.0.0.1:8765` for the local service. Inspect `/health.visual_analysis` before service calls. My Songs uses `Tools/PrismMoves.ps1` and `Workflows/prismmoves-visual-analysis.md`.
