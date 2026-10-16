@@ -5,6 +5,8 @@ description: Generate an evidence-labelled visual-language profile of local imag
 
 # PrismMoves
 
+[DanceFlow ecosystem](https://kieransimkin.co.uk/danceflow/) · [Canonical source](https://github.com/kieransimkin/PrismMoves)
+
 ![Synthetic input and actual PixelCue measurement figure showing the reporting handoff](assets/visual-profile-example.png)
 
 Generated measurement figure from PixelCue 0.9.0; explanatory output, not an interface screenshot or semantic-accuracy evaluation.

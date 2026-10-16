@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128" role="img" aria-labelledby="title desc">
+<title id="title">PrismMoves logo</title><desc id="desc">A prism separates one visual input into three evidence paths. Original DanceFlow family mark by Kieran Simkin.</desc>
+<rect x="3" y="3" width="122" height="122" rx="30" fill="#171124"/>
+<rect x="8" y="8" width="112" height="112" rx="25" fill="none" stroke="#f5ce85" stroke-opacity=".35" stroke-width="1.5"/>
+<g fill="none" stroke="#bff7df" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"><path d="M58 35L32 90H84Z M17 63H44"/><path d="M72 58L105 38M76 65H108M80 74L105 94"/></g>
+<g fill="#f5ce85"><circle cx="105" cy="38" r="5"/><circle cx="108" cy="65" r="5"/><circle cx="105" cy="94" r="5"/></g></svg>

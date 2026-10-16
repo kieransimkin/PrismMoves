@@ -1,5 +1,11 @@
 # PrismMoves
 
+![PrismMoves prism and three evidence paths](https://raw.githubusercontent.com/kieransimkin/PrismMoves/main/docs/branding/logo.png)
+
+**Understand an image before you extend its visual language.**
+
+Bring colour, texture, composition and selected model interpretations into one inspectable report. Use PrismMoves to examine cover artwork, campaign visuals and reference images before making design decisions.
+
 PrismMoves turns **PixelCue analysis** into a broad, evidence-labelled visual-language profile of an image. It belongs to the [DanceFlow ecosystem](https://kieransimkin.co.uk/danceflow/).
 
 PixelCue owns decoding, measurements, model loading, inference and tag extraction. PrismMoves calls PixelCue's Python API or local HTTP service, organises its receipts along the visual-identity assessment axes, and writes JSON, Markdown and a self-contained HTML report. It contains no competing image-analysis engine or model implementation.
@@ -67,7 +73,7 @@ OCR requires PixelCue's `analysis` extra (`pytesseract`) and a separately instal
 
 ## Evidence contract
 
-`analysis.json` retains PixelCue's source SHA-256, original and analysed dimensions, EXIF orientation handling, alpha matte, ICC handling, measurement methods, model checkpoint/revision where available, dependency versions, prompt bank and per-model completion/failure state. `report.md` and `report.html` distinguish observations, model interpretations, unknowns and proposed next evidence. `SHA256SUMS.txt` covers all three outputs. `--role` and `--lineage` retain supplied labels; they never imply verified approval or independent authorship. Local source paths are not copied into the source ledger; model paths and service errors may still be private and require review before sharing reports.
+`analysis.json` retains PixelCue's source SHA-256, original and analysed dimensions, EXIF orientation handling, alpha matte, ICC handling, measurement methods, model checkpoint/revision where available, dependency versions, prompt bank and per-model completion/failure state. `report.md` and `report.html` distinguish observations, model interpretations, unknowns and proposed next evidence. `visual-summary.svg` draws the measured palette and model completion status and is embedded beside the Markdown explanation. `SHA256SUMS.txt` covers all four outputs. `--role` and `--lineage` retain supplied labels; they never imply verified approval or independent authorship. Local source paths are not copied into the source ledger; model paths and service errors may still be private and require review before sharing reports.
 
 Exit codes: `0` all inputs and requested models completed; `2` usable report with missing inputs/models; `1` backend/configuration failure. Invalid CLI usage exits with argparse's code `2` and creates no report.
 

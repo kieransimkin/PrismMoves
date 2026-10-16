@@ -9,7 +9,7 @@ import urllib.error
 
 from . import __version__
 from .backend import PixelCueBackend
-from .report import build_report, html_report, markdown
+from .report import build_report, html_report, markdown, svg_summary
 
 
 def main(argv=None):
@@ -57,7 +57,8 @@ def main(argv=None):
         args.out.mkdir(parents=True, exist_ok=False)
         text = markdown(report)
         outputs = {"analysis.json": json.dumps(report, ensure_ascii=False, indent=2, allow_nan=False)+"\n",
-            "report.md": text, "report.html": html_report(report, text)}
+            "report.md": text, "report.html": html_report(report, text),
+            "visual-summary.svg": svg_summary(report)}
         for name, content in outputs.items():
             (args.out/name).write_text(content, encoding="utf-8")
         checksums = "".join(hashlib.sha256((args.out/name).read_bytes()).hexdigest()+"  "+name+"\n" for name in outputs)

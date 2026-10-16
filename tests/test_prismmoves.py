@@ -6,7 +6,7 @@ import pytest
 
 from prismmoves.backend import PixelCueBackend, validate_profile
 from prismmoves.cli import main
-from prismmoves.report import build_report, html_report, markdown
+from prismmoves.report import build_report, html_report, markdown, svg_summary
 
 
 def profile():
@@ -47,6 +47,11 @@ def test_reports_escape_untrusted_text_and_preserve_unknowns():
     assert "Caption hypothesis" in text
     assert "core invariants" in text
     assert "No semantic" not in text
+    import xml.etree.ElementTree as ET
+    graphic = svg_summary(report)
+    ET.fromstring(graphic)
+    assert '<script>' not in graphic
+    assert 'visual-summary.svg' in text
 
 
 def test_http_cli_calls_pixelcue_and_writes_durable_report(tmp_path):

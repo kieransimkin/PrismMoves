@@ -5,12 +5,13 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "prismmoves"
 version = "0.1.0"
-description = "Evidence-labelled visual identity profiles composed from PixelCue analysis. Part of DanceFlow."
+description = "Visual identity analysis with PixelCue: colour, texture, composition and model evidence in inspectable reports. https://kieransimkin.co.uk/danceflow/"
 readme = "README.md"
 requires-python = ">=3.13,<3.14"
 license = "MIT"
 license-files = ["LICENSE"]
 authors = [{name = "Kieran Simkin"}]
+keywords = ["DanceFlow", "visual-identity", "image-analysis", "PixelCue", "colour-analysis", "computer-vision"]
 dependencies = []
 
 [project.optional-dependencies]
@@ -30,6 +31,7 @@ where = ["src"]
 [tool.setuptools.data-files]
 "share/prismmoves/skills/prismmoves" = ["skills/prismmoves/SKILL.md"]
 "share/prismmoves/skills/prismmoves/assets" = ["skills/prismmoves/assets/visual-profile-example.png"]
+"share/prismmoves/branding" = ["docs/branding/logo.svg", "docs/branding/logo.png", "docs/branding/README.md"]
 
 [tool.pytest.ini_options]
 pythonpath = ["src"]

@@ -27,6 +27,8 @@ def build_report(items, backend):
 def markdown(report):
     lines = ["# PrismMoves visual-language analysis", "", f"Generated: {report['created_at']}",
         "", "PixelCue owns the image measurements and model analysis. PrismMoves organises the evidence.",
+        "", "![Measured palette and analysis status for each supplied image](visual-summary.svg)",
+        "", "Generated graphic from the actual PixelCue receipts; model interpretations still require visual review.",
         "", "## Evidence ledger", "", "| ID | Image | Role (supplied) | Lineage (supplied) | SHA-256 | State |",
         "|---|---|---|---|---|---|"]
     def cell(text):
@@ -85,6 +87,31 @@ def markdown(report):
     lines += ["", "## Unknowns and conflicts", ""]+["- "+v for v in report["unknowns"]]
     lines += ["", "## Proposed next evidence", ""]+["- "+v for v in report["proposed_next_evidence"]]
     return "\n".join(lines)+"\n"
+
+
+def svg_summary(report):
+    """Presentation only: draw an accessible graphic from existing PixelCue receipts."""
+    e = html.escape
+    height = 90+len(report['items'])*150
+    parts = [f'<svg xmlns="http://www.w3.org/2000/svg" width="900" height="{height}" viewBox="0 0 900 {height}" role="img" aria-labelledby="title desc">',
+        '<title id="title">PrismMoves measured visual profile</title>',
+        '<desc id="desc">Approximate palette and completion status from PixelCue analysis; no aesthetic score.</desc>',
+        f'<rect width="900" height="{height}" fill="#191426"/>',
+        '<g fill="#ffffff" font-family="sans-serif"><text x="28" y="40" font-size="26">PrismMoves · PixelCue measured evidence</text>']
+    for i, item in enumerate(report['items']):
+        y = 90+i*150
+        label = f"{item['id']} · {item['name']} · {item['status']}"
+        parts.append(f'<text x="28" y="{y}" font-size="18">{e(label[:100])}</text>')
+        if item['status'] != 'completed':
+            continue
+        p = item['analysis']
+        for j, color in enumerate(p['measurements']['colour']['palette']):
+            x = 28+j*140
+            parts += [f'<rect x="{x}" y="{y+15}" width="125" height="48" fill="{e(color["hex"])}"/>',
+                f'<text x="{x}" y="{y+84}" font-size="14">{e(color["hex"])} · {color["sample_fraction"]:.0%}</text>']
+        completed = sum(m['status'] == 'completed' for m in p['models'])
+        parts.append(f'<text x="28" y="{y+115}" font-size="14">Requested model receipts completed: {completed}/{len(p["models"])}. Palette centres are approximate.</text>')
+    return ''.join(parts)+ '</g></svg>\n'
 
 
 def html_report(report, text):
