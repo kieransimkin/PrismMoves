@@ -40,6 +40,18 @@ prismmoves cover.png --models clip dinov2 blip ocr --out analysis/cover-models
 
 All optional models are selected explicitly. Missing dependencies, absent cached weights and failed inference produce individual `unavailable` receipts; statistical measurements survive. The default run uses no neural model. `--models clip dinov2 blip` uses locally cached checkpoints only. `--model-path clip=PATH` selects a local model directory; no remote custom code is enabled. `--device cpu` is the default, with explicit CUDA/MPS options.
 
+### Project-local models
+
+DanceFlow stores downloaded model weights and model-specific caches in the owning project's `models/` directory and excludes it with `models/` in `.gitignore`. `--models-dir PROJECT/models` (or `PIXELCUE_MODELS_DIR`) selects that location; otherwise PixelCue uses the current working project's `models/`. Neural adapter caches stay under its `.cache/huggingface`. The My Songs launcher selects this PrismMoves project's models directory. Existing PixelCue VLMs use the server process's project model root. Explicit legacy model paths are retained until deliberately migrated; no automatic relocation or model deletion occurs.
+
+To explicitly install all three default neural analysis models through PixelCue:
+
+```powershell
+python -m pixelcue.visual_models clip dinov2 blip --models-dir models
+```
+
+This performs downloads only when invoked. Each model gets a `pixelcue-model.json` manifest with pinned hub revision, licence metadata and SHA-256 hashes. It selects one supported weight format and skips unrelated framework weights. Tesseract trained-data also belongs under the project model directory when installed; its executable is a separate runtime dependency. No weights belong in Git or release archives.
+
 ```powershell
 prismmoves cover.png --pixelcue-url http://127.0.0.1:8765 --models clip dinov2 --out analysis/local-models
 prismmoves cover.png --pixelcue-url http://127.0.0.1:8765 --pixelcue-models smolvlm-256m --allow-download --out analysis/tagged

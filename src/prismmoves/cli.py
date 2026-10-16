@@ -21,6 +21,7 @@ def main(argv=None):
     parser.add_argument("--models", nargs="*", choices=["clip", "dinov2", "blip", "ocr"], default=[])
     parser.add_argument("--pixelcue-models", nargs="*", default=[], help="Existing PixelCue VLM tagger profiles; requires --allow-download")
     parser.add_argument("--model-path", action="append", default=[], metavar="NAME=PATH")
+    parser.add_argument("--models-dir", type=Path, default=None, help="Project-local models/ folder (default: current project/models)")
     parser.add_argument("--allow-download", action="store_true", help="Explicitly permit selected PixelCue model downloads")
     parser.add_argument("--device", choices=["cpu", "cuda", "mps"], default="cpu")
     parser.add_argument("--max-edge", type=int, default=768)
@@ -46,7 +47,8 @@ def main(argv=None):
             try:
                 result = backend.analyse(path.resolve(), models=args.models, model_paths=paths,
                     keyword_models=args.pixelcue_models, allow_download=args.allow_download,
-                    max_edge=args.max_edge, background=args.background, device=args.device)
+                    max_edge=args.max_edge, background=args.background, device=args.device,
+                    models_dir=str(args.models_dir.resolve()) if args.models_dir else None)
                 item.update(status="completed", analysis=result)
             except (OSError, ValueError, RuntimeError) as exc:
                 item.update(status="unavailable", reason=f"{type(exc).__name__}: {str(exc)[:1200]}")
