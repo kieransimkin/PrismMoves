@@ -4,7 +4,7 @@ PrismMoves turns **PixelCue analysis** into a broad, evidence-labelled visual-la
 
 PixelCue owns decoding, measurements, model loading, inference and tag extraction. PrismMoves calls PixelCue's Python API or local HTTP service, organises its receipts along the visual-identity assessment axes, and writes JSON, Markdown and a self-contained HTML report. It contains no competing image-analysis engine or model implementation.
 
-![Synthetic geometric fixture beside actual PixelCue palette and texture measurements, showing the handoff to PrismMoves reports](docs/images/visual-profile-example.png)
+![Synthetic geometric fixture beside actual PixelCue palette and texture measurements, showing the handoff to PrismMoves reports](https://raw.githubusercontent.com/kieransimkin/PrismMoves/main/docs/images/visual-profile-example.png)
 
 Generated measurement figure for PixelCue 0.9.0 and PrismMoves 0.1.0, using the original synthetic fixture from `examples/create_synthetic_fixture.py`. The palette and statistics are actual engine output; this figure is not a UI screenshot or pretrained-model accuracy test. Reproduce it with `examples/render_documentation_example.py INPUT OUTPUT` in a PixelCue-enabled runtime.
 
