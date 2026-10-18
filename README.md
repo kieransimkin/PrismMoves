@@ -26,11 +26,11 @@ captions never establish rotation or pulsing. The standard image CLI is unchange
 `prismmoves-preset legacy --reports PATH --out NEW_PATH` reorganises saved
 FrameRudiments reports without new inference or invented temporal evidence.
 See [preset behaviour, caching, selection and limitations](docs/preset-behaviour.md).
-The sequence extra needs the coordinated PixelCue 0.9.1.dev1 update.
+The sequence extra needs the coordinated PixelCue 0.9.1 release.
 
 ## Install and run
 
-Requires Python 3.13. Install PrismMoves from the wheel on its GitHub release. The HTTP client has no third-party dependencies. For an in-process backend install `prismmoves[local]`, which requires PixelCue 0.9.0 or later and its dependencies. If using release wheels before a new package is available in a registry, install the downloaded wheel with `python -m pip install path/to/prismmoves-0.1.0-py3-none-any.whl`.
+Requires Python 3.13. Install PrismMoves from the wheel on its GitHub release. The HTTP client has no third-party dependencies. For an in-process backend install `prismmoves[local]`, which requires PixelCue 0.9.0 or later and its dependencies. If using release wheels before a new package is available in a registry, install the downloaded wheel with `python -m pip install path/to/prismmoves-0.2.0-py3-none-any.whl`.
 
 With an existing PixelCue service:
 
