@@ -14,19 +14,15 @@ PixelCue owns decoding, measurements, model loading, inference and tag extractio
 
 Generated measurement figure for PixelCue 0.9.0 and PrismMoves 0.1.0, using the original synthetic fixture from `examples/create_synthetic_fixture.py`. The palette and statistics are actual engine output; this figure is not a UI screenshot or pretrained-model accuracy test. Reproduce it with `examples/render_documentation_example.py INPUT OUTPUT` in a PixelCue-enabled runtime.
 
-## Visualiser descriptions: temporal-first analysis
+## Before every new workflow
 
-Use `prismmoves-preset analyse --captures captures.json --out analysis/preset
---models-dir models` for an evidence-linked paragraph per visualiser preset.
-PixelCue measures the dense sequence first; PrismMoves selects at most 24 unique,
-non-blank images for CLIP/BLIP interpretation. A model is loaded once per selected
-batch, not per captured frame. Motion never waits on captioning, and still-image
-captions never establish rotation or pulsing. The standard image CLI is unchanged.
+Check the latest stable official release and the actual installed/imported version before starting; do not infer currency from a directory name or a development checkout. Read the current release notes, tagged capability documentation and relevant Potential problems. Use the [DanceFlow release preflight](https://github.com/kieransimkin/DanceFlow/blob/main/docs/workflows/release-preflight.md) and [complete capability references](https://github.com/kieransimkin/DanceFlow/blob/main/docs/capabilities/index.md).
 
-`prismmoves-preset legacy --reports PATH --out NEW_PATH` reorganises saved
-FrameRudiments reports without new inference or invented temporal evidence.
-See [preset behaviour, caching, selection and limitations](docs/preset-behaviour.md).
-The sequence extra needs the coordinated PixelCue 0.9.1 release.
+People and agents should consider the full ecosystem, use all capabilities that materially serve the task, compose supported files/APIs, and improve a demonstrated reusable gap in its canonical tool. Record why no worthwhile change is justified when that is the result. Keep independent tool identities, compatibility, source clocks, privacy, model/download costs and publication/deployment permissions intact. Store weights and model-specific caches in the owning project's ignored `models/`.
+
+## Find your route
+
+[Install and run](#install-and-run) · [What PixelCue contributes](#what-pixelcue-contributes) · [Visualiser descriptions: temporal-first analysis](#visualiser-descriptions-temporal-first-analysis) · [Evidence contract](#evidence-contract) · [Interpretation limits](#interpretation-limits) · [Development and Potential problems](#development-and-potential-problems)
 
 ## Install and run
 
@@ -84,6 +80,20 @@ prismmoves cover.png --pixelcue-url http://127.0.0.1:8765 --pixelcue-models smol
 **Download consent:** `--allow-download` explicitly permits downloads for the selected models. Existing PixelCue VLM taggers may download on first use, so they are not invoked without this flag. No hosted inference or image upload is performed. HTTP is restricted to a loopback origin; redirects and environment proxies are disabled. Paths refer to files visible to that local PixelCue service. Heavy model work can exceed the client's 300-second request timeout; a timeout is not proof that server work stopped.
 
 OCR requires PixelCue's `analysis` extra (`pytesseract`) and a separately installed Tesseract executable. Neural adapters use PixelCue's Torch/Transformers installation. Checkpoint licences and suitability require review before downloading or using weights.
+
+## Visualiser descriptions: temporal-first analysis
+
+Use `prismmoves-preset analyse --captures captures.json --out analysis/preset
+--models-dir models` for an evidence-linked paragraph per visualiser preset.
+PixelCue measures the dense sequence first; PrismMoves selects at most 24 unique,
+non-blank images for CLIP/BLIP interpretation. A model is loaded once per selected
+batch, not per captured frame. Motion never waits on captioning, and still-image
+captions never establish rotation or pulsing. The standard image CLI is unchanged.
+
+`prismmoves-preset legacy --reports PATH --out NEW_PATH` reorganises saved
+FrameRudiments reports without new inference or invented temporal evidence.
+See [preset behaviour, caching, selection and limitations](docs/preset-behaviour.md).
+The sequence extra needs the coordinated PixelCue 0.9.1 release.
 
 ## Evidence contract
 
