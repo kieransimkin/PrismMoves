@@ -6,7 +6,7 @@ import math
 import re
 import statistics
 
-DESCRIPTION_VERSION = "1.0.0"
+DESCRIPTION_VERSION = "2.0.0"
 HUES = ("red", "orange", "yellow", "lime", "green", "turquoise", "cyan", "blue",
         "indigo", "violet", "magenta", "pink")
 
@@ -163,7 +163,7 @@ def _semantic_votes(frames, items):
     return votes, evidence
 
 
-def synthesise_description(evidence, semantic_items=(), *, name="", engine="", plan=None):
+def synthesise_sample_description(evidence, semantic_items=(), *, name="", engine="", plan=None):
     """A short paragraph with per-claim evidence; names never drive conclusions."""
     frames = evidence.get("frames", [])
     claims, clauses = [], []
@@ -267,3 +267,24 @@ def synthesise_description(evidence, semantic_items=(), *, name="", engine="", p
             "limits": ["No claims about beat synchronisation, flash safety, artistic intention or aesthetic quality.",
                        "Unseen phases and inputs may behave differently; model interpretations can be wrong.",
                        "Absence of a detected artefact is not certification that the renderer is artefact-free."]}
+
+
+def synthesise_description(evidence, semantic_items=(), *, name="", engine="", plan=None):
+    """Safe preset-level default: reference-fed appearance is not preset identity.
+
+    Existing measurements are still available through synthesise_sample_description.
+    Standalone/audio claims require the controlled_response API and its no-feed,
+    repeated-intervention manifest. Captions cannot create missing causal evidence.
+    """
+    del semantic_items, name, engine, plan
+    available = bool(evidence.get("frames"))
+    summary = ("These reference-fed captures do not isolate the preset's standalone motion or its response to music. "
+               "No image colours, objects or reference patterns are attributed to the preset; no-feed audio controls are needed."
+               if available else "No usable rendered frames are available; standalone motion and audio response remain unknown.")
+    return {"schema": "prismmoves.preset-description/1", "version": DESCRIPTION_VERSION,
+            "summary": summary, "status": "limited" if available else "unavailable",
+            "scope_policy": "preset-only", "motion_status": "unknown", "semantic_status": "excluded_from_preset_summary",
+            "claims": [], "movement": [], "effects": [], "artefacts": [], "style": [],
+            "scope": "Standalone preset effects; reference-conditioned observations are diagnostic only",
+            "limits": ["The former capture protocol injected imagery continuously and pooled silence/music in its prose.",
+                       "Use controlled no-feed captures to produce a standalone motion and audio-response description."]}

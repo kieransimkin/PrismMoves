@@ -1,3 +1,11 @@
+# Development 0.3.0.dev2
+
+One reference-free paragraph combining palette, supported appearance, characteristic
+motion and controlled audio effects. Restores labelled contact sheets and exact
+semantic keyframes, retains all temporal/PCM-window evidence, adds no-rerender
+reanalysis and separate completion states. Keeps numerical analysis ahead of
+sparse model-major inference. Includes the preceding controlled-response API.
+
 # 0.2.0 - 2026-10-18
 
 Temporal-first preset evidence, bounded representative-frame interpretation,

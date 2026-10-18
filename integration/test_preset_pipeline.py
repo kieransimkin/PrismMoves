@@ -36,7 +36,8 @@ def test_pipeline_temporal_precedes_inference_and_caches(tmp_path):
     assert calls and r['performance']['new_semantic_frames']<=4
     r2=analyse_capture_manifest(manifest,out,models=['blip'],models_dir=root,budget=4,batch_analyser=spy)
     assert len(calls)==1 and r2['performance']['cache_hits']==sum(calls)
-    assert r2['description']['motion_status']=='measured'
+    assert r2['description']['motion_status']=='unknown'  # Reference input is not standalone evidence.
+    assert r2['reference_observations']['motion_status']=='measured'
     assert (out/'report.html').is_file()
     assert str(tmp_path) not in (out/'request.json').read_text()
     with pytest.raises(ValueError):

@@ -1,7 +1,7 @@
 import hashlib
 
 import pytest
-from prismmoves.preset_description import select_semantic_frames,synthesise_description
+from prismmoves.preset_description import select_semantic_frames, synthesise_sample_description as synthesise_description
 from prismmoves.preset_pipeline import build_gallery, write_json
 
 

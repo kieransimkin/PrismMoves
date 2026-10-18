@@ -18,7 +18,8 @@ import sys
 import time
 import uuid
 
-from .preset_description import DESCRIPTION_VERSION, select_semantic_frames, synthesise_description
+from .preset_description import (DESCRIPTION_VERSION, select_semantic_frames,
+                                 synthesise_description, synthesise_sample_description)
 
 
 def digest_file(path):
@@ -62,7 +63,8 @@ def capture_records(manifest):
                                 path=output["path"], sha256=output["sha256"],
                                 input_path=original.get("path"), input_sha256=original.get("sha256"),
                                 imagery=condition.get("imagery"), audio_mode=condition.get("audio_mode"),
-                                sample=condition.get("sample")))
+                                sample=condition.get("sample"), frame_index=frame["frame"],
+                                **({"pcm_rms": frame["pcm_rms"]} if "pcm_rms" in frame else {})))
     return records
 
 
@@ -249,7 +251,9 @@ def analyse_capture_manifest(captures, output, *, budget=24, models=("clip", "bl
         description["semantic_status"] = "partial"
     report = {"schema": "prismmoves.preset-report/1", "signature": signature,
               "preset": {k: manifest.get("preset", {}).get(k) for k in ("id", "name", "engine")},
-              "description": description, "selection": plan,
+              "description": description,
+              "reference_observations": synthesise_sample_description(temporal, ordered_items, plan=plan),
+              "selection": plan,
               "analysis_state": "partial" if temporal.get("errors") or missing_semantics or
                   description["semantic_status"] == "partial" else "completed",
               "temporal": temporal, "semantic_items": ordered_items,
@@ -275,6 +279,9 @@ def write_report(out, report):
     for claim in description.get("claims", []):
         text += f"- {claim['axis']}: {claim['text']} ({claim['evidence_class']}; {len(claim['evidence'])} references)\n"
     text += "\n" + "\n".join(description.get("limits", [])) + "\n"
+    if report.get("reference_observations"):
+        text += "\n## Reference-conditioned observations (NOT preset identity)\n\n"
+        text += report["reference_observations"]["summary"] + "\n"
     (out/"report.md").write_text(text, encoding="utf-8")
     html_text = "<!doctype html><html lang='en'><meta charset='utf-8'><meta name='viewport' content='width=device-width'>"
     html_text += f"<title>{html.escape(name)}</title><style>body{{font:17px/1.6 system-ui;max-width:900px;margin:3rem auto;padding:0 1.5rem;background:#111927;color:#ecf3ff}}a{{color:#8ddbe6}}.lead{{font-size:1.35rem}}pre{{white-space:pre-wrap;overflow-wrap:anywhere}}details{{margin-top:2rem}}</style>"
@@ -386,6 +393,10 @@ def build_gallery(output):
         if record.get("schema") != "prismmoves.preset-report/1":
             continue
         p, d = record["preset"], record["description"]
+        if d.get("scope_policy") != "preset-only":
+            # Reindexing old receipts must not republish inherited image content
+            # as preset identity. The original report stays available for audit.
+            d = synthesise_description({"frames": [True]})
         legacy_count += bool(record.get("legacy_source_sha256"))
         terms = " ".join([str(p.get("name", "")), str(p.get("engine", "")), d["status"],
                           d["summary"], *d.get("movement", []), *d.get("style", []), *d.get("artefacts", [])]).lower()

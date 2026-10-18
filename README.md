@@ -1,5 +1,26 @@
 # PrismMoves
 
+## Complete preset portraits and contact sheets (development)
+
+The hybrid workflow combines reference-free style, colour, shape and movement
+observations with controlled silence/music and sound-probe comparisons in **one
+paragraph**. Numerical analysis runs first; at most 24 distinct output images
+receive appearance inference. Labelled contact sheets and exact original
+keyframes are retained for comparison with the paragraph.
+See [hybrid preset analysis](docs/hybrid-preset-analysis.md) for the unified
+launcher, no-rerender reanalysis, model policy, data retention and limitations.
+
+## Preset-only motion and audio response (development)
+
+The controlled audio-response workflow separates standalone no-image-feed output,
+silence, frequency/level/envelope probes and optional musical excerpts. Its measurement-only API uses
+repeated PixelCue measurements with **zero neural calls**; reference
+colours, objects and captions cannot supply the main paragraph. See
+[the controlled-response protocol](docs/controlled-audio-response.md).
+The older reference-fed description remains available as
+`synthesise_sample_description`; `synthesise_description` now refuses to pass that
+appearance off as standalone preset identity. Existing receipts are not deleted.
+
 ![PrismMoves prism and three evidence paths](https://raw.githubusercontent.com/kieransimkin/PrismMoves/main/docs/branding/logo.png)
 
 **Understand an image before you extend its visual language.**

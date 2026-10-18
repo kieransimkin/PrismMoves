@@ -6,4 +6,4 @@ recursive-include docs *.png
 recursive-include docs *.svg *.md
 recursive-include skills *.png
 
-recursive-include integration *.py
+recursive-include integration *.py *.md
