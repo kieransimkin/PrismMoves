@@ -14,6 +14,20 @@ PixelCue owns decoding, measurements, model loading, inference and tag extractio
 
 Generated measurement figure for PixelCue 0.9.0 and PrismMoves 0.1.0, using the original synthetic fixture from `examples/create_synthetic_fixture.py`. The palette and statistics are actual engine output; this figure is not a UI screenshot or pretrained-model accuracy test. Reproduce it with `examples/render_documentation_example.py INPUT OUTPUT` in a PixelCue-enabled runtime.
 
+## Visualiser descriptions: temporal-first analysis
+
+Use `prismmoves-preset analyse --captures captures.json --out analysis/preset
+--models-dir models` for an evidence-linked paragraph per visualiser preset.
+PixelCue measures the dense sequence first; PrismMoves selects at most 24 unique,
+non-blank images for CLIP/BLIP interpretation. A model is loaded once per selected
+batch, not per captured frame. Motion never waits on captioning, and still-image
+captions never establish rotation or pulsing. The standard image CLI is unchanged.
+
+`prismmoves-preset legacy --reports PATH --out NEW_PATH` reorganises saved
+FrameRudiments reports without new inference or invented temporal evidence.
+See [preset behaviour, caching, selection and limitations](docs/preset-behaviour.md).
+The sequence extra needs the coordinated PixelCue 0.9.1.dev1 update.
+
 ## Install and run
 
 Requires Python 3.13. Install PrismMoves from the wheel on its GitHub release. The HTTP client has no third-party dependencies. For an in-process backend install `prismmoves[local]`, which requires PixelCue 0.9.0 or later and its dependencies. If using release wheels before a new package is available in a registry, install the downloaded wheel with `python -m pip install path/to/prismmoves-0.1.0-py3-none-any.whl`.

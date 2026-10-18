@@ -1,3 +1,8 @@
+# Development update 0.2.0.dev1
+
+Temporal-first preset evidence, bounded representative-frame interpretation,
+shared model-major adapters and readable per-preset descriptions. Not published.
+
 # Changelog
 
 ## 0.1.0 - 2026-10-16

@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "prismmoves"
-version = "0.1.0"
+version = "0.2.0.dev1"
 description = "Visual identity analysis with PixelCue: colour, texture, composition and model evidence in inspectable reports. https://kieransimkin.co.uk/danceflow/"
 readme = "README.md"
 requires-python = ">=3.13,<3.14"
@@ -16,10 +16,12 @@ dependencies = []
 
 [project.optional-dependencies]
 local = ["pixelcue>=0.9.0,<1"]
+sequence = ["pixelcue[sequence]>=0.9.1.dev1,<1"]
 dev = ["pytest>=8", "build>=1.2", "twine>=6"]
 
 [project.scripts]
 prismmoves = "prismmoves.cli:main"
+prismmoves-preset = "prismmoves.preset_pipeline:main"
 
 [project.urls]
 Homepage = "https://kieransimkin.co.uk/danceflow/"
