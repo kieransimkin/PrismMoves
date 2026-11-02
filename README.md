@@ -139,4 +139,26 @@ python -m build
 python -m twine check --strict dist/*
 ```
 
-Tests use synthetic protocol fixtures, including a loopback HTTP server; they do not download weights. Real PixelCue engine/service tests live in PixelCue's repository. In a restricted Windows environment set `TEMP`/`TMP` and pytest's `--basetemp` to writable workspace paths and disable pytest's cache provider if its atomic cache directories are blocked. A service without `/health.visual_analysis` is an old PixelCue and must be upgraded. Partial results require checking each model receipt before making semantic claims.
+Tests use synthetic protocol fixtures, including a loopback HTTP server; they do not download weights. Real PixelCue engine/service tests live in PixelCue's repository. A service without `/health.visual_analysis` is an old PixelCue and must be upgraded. Partial results require checking each model receipt before making semantic claims.
+
+
+## Reliable Python tests on Windows
+
+Run focused tests through `pwsh ./scripts/Invoke-Tests.ps1 <test-path> [...]`.
+The wrapper probes create/read/atomic-rename/delete access before collection,
+uses a unique per-run root beneath `%LOCALAPPDATA%/<project>/pytest-tmp` on
+Windows, redirects Python process temporary files, pytest's `--basetemp` and cache,
+then removes only that run's directory and restores the caller's environment.
+This avoids stale or sandbox-altered `%TEMP%\pytest-of-*` ACLs and prevents
+parallel checkouts from sharing a pytest root.
+
+Repository text is stored and checked out as LF through `.gitattributes`;
+declared binary media, archives, fonts and model formats remain byte-exact.
+
+An omitted test selection fails closed. Use `-FullSuite` only for an explicit
+release or whole-environment diagnostic; routine local work should select the
+affected tests, while GitHub Actions owns the complete platform matrix.
+
+This is a command-line environment-isolation contract, so screenshots or video
+would not add reliable evidence. The probe messages, selected test output and
+process exit code are the verification evidence.
