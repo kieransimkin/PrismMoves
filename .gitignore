@@ -6,3 +6,7 @@ build/
 dist/
 outputs/
 models/
+
+# Local test scratch is never source or release evidence.
+.pytest_cache/
+.test-tmp/
