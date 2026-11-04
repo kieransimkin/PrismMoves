@@ -1,4 +1,4 @@
-# Development 0.3.0.dev2
+# 0.3.0
 
 One reference-free paragraph combining palette, supported appearance, characteristic
 motion and controlled audio effects. Restores labelled contact sheets and exact
