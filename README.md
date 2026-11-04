@@ -1,6 +1,6 @@
 # PrismMoves
 
-## Complete preset portraits and contact sheets (development)
+## Complete preset portraits and contact sheets (0.3.0)
 
 The hybrid workflow combines reference-free style, colour, shape and movement
 observations with controlled silence/music and sound-probe comparisons in **one
@@ -10,7 +10,7 @@ keyframes are retained for comparison with the paragraph.
 See [hybrid preset analysis](docs/hybrid-preset-analysis.md) for the unified
 launcher, no-rerender reanalysis, model policy, data retention and limitations.
 
-## Preset-only motion and audio response (development)
+## Preset-only motion and audio response (0.3.0)
 
 The controlled audio-response workflow separates standalone no-image-feed output,
 silence, frequency/level/envelope probes and optional musical excerpts. Its measurement-only API uses
